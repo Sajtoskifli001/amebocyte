@@ -16,7 +16,7 @@ class Widget
 
     protected:
         int _x, _y, _sx, _sy;                       //bal felsõ sarok x koordinátája, y koordinátája, szélesség, magasság
-        const int _border=3;                        //widget területébõl mennyi a keret
+        int _border=3;                        //widget területébõl mennyi a keret
         Application* _parent;                       //Applikáció amihez tartozik
 };
 

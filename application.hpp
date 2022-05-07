@@ -14,7 +14,7 @@ class Application
         void push(Widget*);                         //widget pointer vektorhoz adása, kér: widget pointer
         void draw_all();                            //widget vektor összes elemének kirajzolása
         void event_loop();                          //event loop
-        virtual void action(std::string)=0;
+        virtual void CTD(char)=0;
 
     protected:
         std::vector<Widget*> widgets;               //widgetek

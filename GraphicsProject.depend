@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1651917974 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\application.cpp
+1651921281 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\application.cpp
 	"graphics.hpp"
 	"application.hpp"
 	"widget.hpp"
@@ -9,11 +9,11 @@
 	<string>
 	<vector>
 
-1651917974 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\application.hpp
+1651930708 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\application.hpp
 	<vector>
 	<string>
 
-1650796704 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\widget.hpp
+1651932776 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\widget.hpp
 	"graphics.hpp"
 	"application.hpp"
 
@@ -26,13 +26,16 @@
 1650796704 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\intbox.hpp
 	"widget.hpp"
 
-1651718744 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\main.cpp
+1651933742 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\main.cpp
 	"graphics.hpp"
 	"application.hpp"
 	"widget.hpp"
 	"intbox.hpp"
 	"stringpick.hpp"
 	"button.hpp"
+	"board.hpp"
+	"picdisplay.hpp"
+	"textdisplay.hpp"
 	<fstream>
 	<iostream>
 
@@ -41,7 +44,7 @@
 	<string>
 	<vector>
 
-1651917727 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\button.hpp
+1651918648 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\button.hpp
 	"widget.hpp"
 	"application.hpp"
 	<functional>
@@ -58,8 +61,38 @@
 	"widget.hpp"
 	"application.hpp"
 
-1651917757 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\button.cpp
+1651931420 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\button.cpp
 	"button.hpp"
 	"graphics.hpp"
 	"application.hpp"
+
+1651930656 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\board.cpp
+	"graphics.hpp"
+	"board.hpp"
+	"application.hpp"
+	<vector>
+	<fstream>
+	<iostream>
+
+1651930656 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\board.hpp
+	"widget.hpp"
+	<vector>
+
+1651932754 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\picdisplay.cpp
+	"graphics.hpp"
+	"picdisplay.hpp"
+	"application.hpp"
+	<vector>
+	<fstream>
+
+1651932749 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\picdisplay.hpp
+	"widget.hpp"
+
+1651932548 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\textdisplay.cpp
+	"graphics.hpp"
+	"textdisplay.hpp"
+	"application.hpp"
+
+1651931420 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\textdisplay.hpp
+	"widget.hpp"
 

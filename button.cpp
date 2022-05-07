@@ -15,6 +15,7 @@ Button::~Button(){}
 
 void Button::draw()
 {
+    int textheight=gout.cascent()+gout.cdescent();
     gout.load_font("LiberationSans-Regular.ttf",30);
     gout << color(200,200,200) << move_to(_x,_y) << box(_sx,_sy);
     if(_pressed)
@@ -22,7 +23,7 @@ void Button::draw()
     else
         gout << color(255,0,0);
     gout << move_to(_x+5,_y+5) << box(_sx-10,_sy-10);
-    gout << color(0,0,0) << move_to(_x+_sx/2-gout.twidth(_text)/2,_y+_sy/2-(gout.cascent()/2+gout.cdescent()/2)) << text(_text);
+    gout << color(0,0,0) << move_to(_x+_sx/2-gout.twidth(_text)/2,_y+_sy/2-textheight/2) << text(_text);
 }
 
 void Button::handle(event ev)
@@ -41,7 +42,7 @@ void Button::handle(event ev)
     }
 }
 
-bool Button::is_pressed()
+bool Button::pressed()
 {
     return _pressed;
 }

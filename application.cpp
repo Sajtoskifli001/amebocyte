@@ -29,7 +29,6 @@ void Application::draw_all()                                            //összes
 
 void Application::event_loop()                                                                  //event loop
 {
-    int textheight=gout.cascent()+gout.cdescent();                                              //szöveg magassága: betûtípustól, mérettõl függ
     draw_all();                                                                                 //widgetek kirajzolása
     event ev;                                                                                   //event változó
     int focus=-1;                                                                               //focus: aktív widget indexe

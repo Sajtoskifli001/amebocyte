@@ -13,13 +13,13 @@ class Button : public Widget
         virtual ~Button();
         virtual void draw();
         virtual void handle(genv::event ev);
-        bool is_pressed();
+        bool pressed();
         void action();
 
     protected:
         std::string _text;
-        bool _pressed=false;
         std::function<void()> _funk;
+        bool _pressed=false;
 };
 
 #endif // BUTTON_HPP
