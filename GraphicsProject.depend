@@ -1,0 +1,65 @@
+# depslib dependency file v1.0
+1651917974 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\application.cpp
+	"graphics.hpp"
+	"application.hpp"
+	"widget.hpp"
+	<fstream>
+
+1618178770 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\include\graphics.hpp
+	<string>
+	<vector>
+
+1651917974 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\application.hpp
+	<vector>
+	<string>
+
+1650796704 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\widget.hpp
+	"graphics.hpp"
+	"application.hpp"
+
+1651917974 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\intbox.cpp
+	"graphics.hpp"
+	"intbox.hpp"
+	"application.hpp"
+	<sstream>
+
+1650796704 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\intbox.hpp
+	"widget.hpp"
+
+1651718744 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\main.cpp
+	"graphics.hpp"
+	"application.hpp"
+	"widget.hpp"
+	"intbox.hpp"
+	"stringpick.hpp"
+	"button.hpp"
+	<fstream>
+	<iostream>
+
+1651711638 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\stringpick.hpp
+	"widget.hpp"
+	<string>
+	<vector>
+
+1651917727 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\button.hpp
+	"widget.hpp"
+	"application.hpp"
+	<functional>
+
+1651917974 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\stringpick.cpp
+	"graphics.hpp"
+	"stringpick.hpp"
+	"application.hpp"
+	<vector>
+	<string>
+
+1650796704 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\widget.cpp
+	"graphics.hpp"
+	"widget.hpp"
+	"application.hpp"
+
+1651917757 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\button.cpp
+	"button.hpp"
+	"graphics.hpp"
+	"application.hpp"
+
