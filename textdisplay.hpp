@@ -3,7 +3,6 @@
 
 #include "widget.hpp"
 
-
 class TextDisplay : public Widget
 {
     public:
@@ -13,6 +12,8 @@ class TextDisplay : public Widget
         virtual void draw();                                //widget kirajzolása
         virtual void handle(genv::event);                   //widget kezelése, kér: event
         virtual bool selected(int,int);
+
+        void setText(std::string);
 
     protected:
         std::string _text;

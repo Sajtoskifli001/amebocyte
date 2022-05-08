@@ -11,9 +11,6 @@ Widget::Widget(Application* parent, int x, int y, int sx, int sy)       //konstr
     _y=y;                                                               //bal felsõ sarok y koordinátája
     _sx=sx;                                                             //szélesség
     _sy=sy;                                                             //magasság
-
-    //_sy=gout.cascent()+gout.cdescent()+10;                            //adaptív magasság, betûtípustól, mérettõl függ, opcionális
-
     _parent->push(this);                                                //Applikáció vektorához adja magát
 }
 Widget::~Widget(){}                                                     //destruktor

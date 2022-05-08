@@ -48,9 +48,9 @@ void StringPick::construct()                                //megjelenítendõ opc
 
 void StringPick::draw()                                                                                                                 //widget kirajzolása
 {
+    gout.load_font("LiberationSans-Regular.ttf",30);
     int textheight=gout.cascent()+gout.cdescent();                                                                                      //szövegmagasság, betûtípustól, mérettõl függ
 
-    gout.load_font("LiberationSans-Regular.ttf",30);
     gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)                                                                        //keret kirajzolása
          << color(255,255,255) << move_to(_x+_border,_y+_border) << box(_sx-_border-_btnSize,_sy-_border*2)                             //kijelzõ kirajzolása
          << color(0,0,0) << move_to(_x+_border+5,_y+_sy/2-textheight/2) << text(_pick);                                                 //választott opció kiírása (ederetileg üres)
@@ -145,7 +145,6 @@ void StringPick::removePick()
     if(pickindex!=-1)
         _options.erase(_options.begin()+pickindex);
     _pick="";
-    //_offset=0;
     construct();
 }
 
@@ -182,6 +181,8 @@ void StringPick::handle(event ev)                                               
                 _optionHover=-1;                                                                        //kurzor opció -1-re állítása
                 _open=!_open;                                                                           //menü bezárása
                 gout << color(0,0,0) << move_to(_x,_y+_sy) << box(_sx-_btnSize,_showCount*_sy);         //menü helyének törlése
+
+                _parent->turnMaster();
             }
         }
 

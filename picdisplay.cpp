@@ -13,10 +13,11 @@ struct rgb
     int r,g,b;
 };
 
-PicDisplay::PicDisplay(Application* parent, int x, int y, int sx, int sy, string file, bool border): Widget(parent,x,y,sx,sy)
+PicDisplay::PicDisplay(Application* parent, int x, int y, int sx, int sy, string file, bool border, bool transp): Widget(parent,x,y,sx,sy)
 {
     if(!border)
         _border=0;
+    _pic.transparent(transp);
     import(file,_pic);
 }
 PicDisplay::~PicDisplay(){}
@@ -42,8 +43,9 @@ void PicDisplay::import(string file, canvas &c)
 
 void PicDisplay::draw()
 {
-    gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)
-         << stamp(_pic,_x+_border,_y+_border);
+    if(_border!=0)
+        gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy);
+    gout << stamp(_pic,_x+_border,_y+_border);
 }
 
 void PicDisplay::redraw(string file)

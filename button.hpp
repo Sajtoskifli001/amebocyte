@@ -14,6 +14,7 @@ class Button : public Widget
         virtual void draw();
         virtual void handle(genv::event ev);
         bool pressed();
+        void setText(std::string);
         void action();
 
     protected:

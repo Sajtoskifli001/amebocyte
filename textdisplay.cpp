@@ -20,6 +20,11 @@ void TextDisplay::draw()
          << color(0,0,0) << move_to(_x+_sx/2-gout.twidth(_text)/2,_y+_sy/2-textheight/2) << text(_text);
 }
 
+void TextDisplay::setText(string newtext)
+{
+    _text=newtext;
+}
+
 void TextDisplay::handle(event ev){}
 
 bool TextDisplay::selected(int cx, int cy)

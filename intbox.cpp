@@ -23,7 +23,7 @@ IntBox::IntBox(Application* parent, int x, int y, int sx, int sy, int intervalL,
     /*stringstream ssL,ssR;                                     //
     ssL << _intervalL;                                          //
     ssR << _intervalR;                                          //
-    if(gout.twidth(ssL.str())>=gout.twidth(ssR.str()))          //  adaptív magasság, legnagyobb ábrázolandó szövegszélességtõl függ, opcionális
+    if(gout.twidth(ssL.str())>=gout.twidth(ssR.str()))          //  adaptív szélesség, legnagyobb ábrázolandó szövegszélességtõl függ, opcionális
         _sx=gout.twidth(ssL.str())+30;                          //
     else                                                        //
         _sx=gout.twidth(ssR.str())+30;*/                        //
@@ -35,12 +35,12 @@ IntBox::~IntBox(){}                                             //destruktor
 
 void IntBox::draw()                                             //widget kirajzolása
 {
+    gout.load_font("LiberationSans-Regular.ttf",30);
     int fieldy=_y+_border,                                      //widget kijelzõ felsõ széle
         fieldwidth=_x+_sx-_btnSize,                             //widget kijelzõ jobb széle (gomb nélkül)
         btnboxsize=_btnSize-_border*2,                          //gomb szélesség keret nélkül
         textheight=gout.cascent()+gout.cdescent();              //szövegmagasság, betûtípustól, mérettõl függ
 
-    gout.load_font("LiberationSans-Regular.ttf",30);
     stringstream ss;
     ss << _number;
     gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)                                                            //keret kirajzolása

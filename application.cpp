@@ -31,18 +31,18 @@ void Application::event_loop()                                                  
 {
     draw_all();                                                                                 //widgetek kirajzolása
     event ev;                                                                                   //event változó
-    int focus=-1;                                                                               //focus: aktív widget indexe
-    while(gin >> ev && ev.keycode!=key_escape)                                                  //kilépés escape billentyû esetén
+    _focus=-1;                                                                               //focus: aktív widget indexe
+    while(gin >> ev && ev.keycode!=key_escape && !_over)                                                  //kilépés escape billentyû esetén
     {
         if(ev.type==ev_mouse && ev.button==btn_left)                                            //bal kattintás esetén kurzor alatti widget fókuszba helyezése
         {
             for(size_t i=0;i<widgets.size();i++)
                 if(widgets[i]->selected(ev.pos_x,ev.pos_y))
-                    focus=i;
+                    _focus=i;
         }
 
-        if(focus!=-1)                                                                           //ha van aktív widget
-            widgets[focus]->handle(ev);                                                         //aktív widget kezelése
+        if(_focus!=-1)                                                                           //ha van aktív widget
+            widgets[_focus]->handle(ev);                                                         //aktív widget kezelése
         draw_all();                                                                             //widgetek kirajzolása
     }
 }

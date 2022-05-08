@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <fstream>
-#include <iostream>
 
 using namespace std;
 using namespace genv;
@@ -78,7 +77,7 @@ cell Board::getCell(int cx, int cy)
     cell retCell={-1,-1,'n'};
     for(size_t i=0;i<_cells.size();i++)
         for(size_t j=0;j<_cells[i].size();j++)
-            if(cx>_cells[i][j].x && cx<_cells[i][j].x+_cellSize && cy>_cells[i][j].y && cy<_cells[i][j].y+_cellSize)
+            if(cx>=_cells[i][j].x && cx<_cells[i][j].x+_cellSize && cy>=_cells[i][j].y && cy<_cells[i][j].y+_cellSize)
             {
                 retCell.x=j;
                 retCell.y=i;
@@ -88,27 +87,181 @@ cell Board::getCell(int cx, int cy)
     return retCell;
 }
 
+char Board::getTurnChar()
+{
+    return _turn;
+}
+
+bool Board::checkRow(cell center, int centerx, int length, char readstat)
+{
+    if(center.x!=0)
+    {
+        do
+        {
+            centerx--;
+            readstat=_cells[center.y][centerx].status;
+            if(readstat==center.status)
+                length++;
+        } while(centerx>center.x-5 && readstat==center.status && centerx>0);
+    }
+    centerx=center.x;
+    if(center.x!=_cellCount-1)
+    {
+        do
+        {
+            centerx++;
+            readstat=_cells[center.y][centerx].status;
+            if(readstat==center.status)
+                length++;
+        } while(centerx<center.x+5 && readstat==center.status && centerx<_cellCount-1);
+    }
+    if(length>=5)
+        return true;
+    else
+        return false;
+}
+
+bool Board::checkColumn(cell center, int centery, int length, char readstat)
+{
+    if(center.y!=0)
+    {
+        do
+        {
+            centery--;
+            readstat=_cells[centery][center.x].status;
+            if(readstat==center.status)
+                length++;
+        } while(centery>center.y-5 && readstat==center.status && centery>0);
+    }
+    centery=center.y;
+    if(center.y!=_cellCount-1)
+    {
+        do
+        {
+            centery++;
+            readstat=_cells[centery][center.x].status;
+            if(readstat==center.status)
+                length++;
+        } while(centery<center.y+5 && readstat==center.status && centery<_cellCount-1);
+    }
+    if(length>=5)
+        return true;
+    else
+        return false;
+}
+
+bool Board::checkDiagBS(cell center, int centerx, int centery, int length, char readstat)
+{
+    if(center.x!=0 && center.y!=0)
+    {
+        do
+        {
+            centerx--;
+            centery--;
+            readstat=_cells[centery][centerx].status;
+            if(readstat==center.status)
+                length++;
+        } while(centerx>center.x-5 && centery>center.y-5 && readstat==center.status && centerx>0 && centery>0);
+    }
+    centerx=center.x;
+    centery=center.y;
+    if(center.x!=_cellCount-1 && center.y!=_cellCount-1)
+    {
+        do
+        {
+            centerx++;
+            centery++;
+            readstat=_cells[centery][centerx].status;
+            if(readstat==center.status)
+                length++;
+        } while(centerx<center.x+5 && centery<center.y+5 && readstat==center.status && centerx<_cellCount-1 && centery<_cellCount-1);
+    }
+    if(length>=5)
+        return true;
+    else
+        return false;
+}
+
+bool Board::checkDiagS(cell center, int centerx, int centery, int length, char readstat)
+{
+    if(center.x!=0 && center.y!=_cellCount-1)
+    {
+        do
+        {
+            centerx--;
+            centery++;
+            readstat=_cells[centery][centerx].status;
+            if(readstat==center.status)
+                length++;
+        } while(centerx>center.x-5 && centery<center.y+5 && readstat==center.status && centerx>0 && centery<_cellCount-1);
+    }
+    centerx=center.x;
+    centery=center.y;
+    if(center.x!=_cellCount-1 && center.y!=0)
+    {
+        do
+        {
+            centerx++;
+            centery--;
+            readstat=_cells[centery][centerx].status;
+            if(readstat==center.status)
+                length++;
+        } while(centerx<center.x+5 && centery>center.y-5 && readstat==center.status && centerx<_cellCount-1 && centery>0);
+    }
+    if(length>=5)
+        return true;
+    else
+        return false;
+}
+
+bool Board::checkFive(cell center)
+{
+    int centerx=center.x, centery=center.y, length=1;
+    char readstat;
+    if(!checkRow(center,centerx,length,readstat))
+        if(!checkColumn(center,centery,length,readstat))
+            if(!checkDiagBS(center,centerx,centery,length,readstat))
+                if(!checkDiagS(center,centerx,centery,length,readstat))
+                    return false;
+                else
+                    return true;
+            else
+                return true;
+        else
+            return true;
+    else
+        return true;
+}
+
+bool Board::getFive()
+{
+    return _five;
+}
+
 void Board::takeTurn(cell c)
 {
-    string notext="Invalid move!";
-    gout.load_font("LiberationSans-Regular.ttf",30);
-    gout << color(0,0,0) << move_to(_x+_sx+20,_y+_sy/3*2) << box(gout.twidth(notext),gout.cascent());
     if(c.status=='f')
     {
         _cells[c.y][c.x].status=_turn;
-        if(_turn=='x')
-            _turn='o';
-        else
-            _turn='x';
-        _parent->CTD(_turn);
+
+        c.status=_turn;
+        _five=checkFive(c);
+
+        if(!_five)
+        {
+            if(_turn=='x')
+                _turn='o';
+            else
+                _turn='x';
+        }
+
+        _parent->turnMaster();
     }
-    else
-        gout << color(200,0,0) << move_to(_x+_sx+20,_y+_sy/3*2) << text(notext);
 }
 
 void Board::handle(event ev)
 {
-    if(ev.type==ev_mouse)
+    if(ev.type==ev_mouse && !_five)
     {
         if(ev.button==btn_left && selected(ev.pos_x,ev.pos_y))
             takeTurn(getCell(ev.pos_x,ev.pos_y));
