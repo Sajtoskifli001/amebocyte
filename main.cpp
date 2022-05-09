@@ -9,6 +9,7 @@
 #include "textdisplay.hpp"
 
 #include <fstream>
+#include <ctime>
 
 using namespace std;
 using namespace genv;
@@ -34,9 +35,8 @@ class App: public Application
         {
             clearApp();
 
-            pic_title = new PicDisplay(this,250,50,600,100,"title3.kep");
-            //pic_title = new PicDisplay(this,75,50,600,100,"title2.kep",false,true);
-            txt_boardsize = new TextDisplay(this,200,300,200,50,"Boardsize:");
+            pic_title = new PicDisplay(this,110,50,600,100,"title.kep",false,true);
+            txt_boardsize = new TextDisplay(this,200,300,200,50,"Board size:");
             ib_sizebox = new IntBox(this,250,400,100,50,15,30);
             txt_player = new TextDisplay(this,700,300,200,50,"First player:");
             vector<string> players={"X (red)","O (blue)"};
@@ -98,7 +98,7 @@ class App: public Application
                 else
                     pic_turndisplay->redraw("x-hires.kep");
 
-                if(gameboard->getFive())
+                if(gameboard->getFive() || gameboard->getFree()==0)
                 {
                     _gamePhase++;
                     turnMaster();
@@ -107,7 +107,18 @@ class App: public Application
             else
             {
                 endGame();
-                txt_placing->setText("Winner:");
+                if(gameboard->getFree()==0)
+                {
+                    srand(time(0));
+                    int rnd=rand()%10;
+                    txt_placing->setText("Draw!");
+                    if(rnd==9)
+                        pic_turndisplay->redraw("csirke.kep");
+                    else
+                        pic_turndisplay->redraw("draw.kep");
+                }
+                else
+                    txt_placing->setText("Winner:");
             }
         }
 

@@ -16,6 +16,7 @@ struct rgb
 Board::Board(Application* parent, int x, int y, int sx, int sy, int cellCount, char turn): Widget(parent,x,y,sx,sy)
 {
     _cellCount=cellCount;
+    _freeCount=_cellCount*_cellCount;
     _turn=turn;
     _sx=cellCount*(_cellSize+_border)+_border;
     _sy=_sx;
@@ -238,6 +239,11 @@ bool Board::getFive()
     return _five;
 }
 
+int Board::getFree()
+{
+    return _freeCount;
+}
+
 void Board::takeTurn(cell c)
 {
     if(c.status=='f')
@@ -253,6 +259,7 @@ void Board::takeTurn(cell c)
                 _turn='o';
             else
                 _turn='x';
+            _freeCount--;
         }
 
         _parent->turnMaster();

@@ -24,6 +24,7 @@ class Board : public Widget
         cell getCell(int,int);
         char getTurnChar();
         bool getFive();
+        int getFree();
         bool checkFive(cell);
         void takeTurn(cell);
 
@@ -33,7 +34,7 @@ class Board : public Widget
         bool checkDiagBS(cell,int,int,int,char);
 
     protected:
-        int _cellCount;
+        int _cellCount, _freeCount;
         char _turn;
         bool _five=false;
         std::vector<std::vector<cell>> _cells;
