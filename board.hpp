@@ -14,7 +14,7 @@ struct cell
 class Board : public Widget
 {
     public:
-        Board(Application*,int,int,int,int,int,char);
+        Board(Application*,int,int,int,char,bool);
         virtual ~Board();
 
         virtual void draw();                                //widget kirajzolása
@@ -26,6 +26,7 @@ class Board : public Widget
         bool getFive();
         int getFree();
         bool checkFive(cell);
+        bool checkStick(cell);
         void takeTurn(cell);
 
         bool checkRow(cell,int,int,char);
@@ -36,7 +37,7 @@ class Board : public Widget
     protected:
         int _cellCount, _freeCount;
         char _turn;
-        bool _five=false;
+        bool _sticky, _five=false;
         std::vector<std::vector<cell>> _cells;
         const int _cellSize=25;
         genv::canvas _cX, _cO;

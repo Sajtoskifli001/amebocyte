@@ -7,6 +7,7 @@
 #include "board.hpp"
 #include "picdisplay.hpp"
 #include "textdisplay.hpp"
+#include "checkbox.hpp"
 
 #include <fstream>
 #include <ctime>
@@ -19,7 +20,7 @@ class App: public Application
     public:
         App(int W, int H): Application(W,H)                                             //konstruktor, Applikáció konstruktor meghívása
         {
-            pic_background = new PicDisplay(this,0,0,1100,900,"bg.kep",false);
+            pic_background = new PicDisplay(this,0,0,"bg.kep",false);
             preGame();
         }
 
@@ -35,14 +36,17 @@ class App: public Application
         {
             clearApp();
 
-            pic_title = new PicDisplay(this,110,50,600,100,"title.kep",false,true);
-            txt_boardsize = new TextDisplay(this,200,300,200,50,"Board size:");
-            ib_sizebox = new IntBox(this,250,400,100,50,15,30);
-            txt_player = new TextDisplay(this,700,300,200,50,"First player:");
+            pic_title = new PicDisplay(this,110,50,"title.kep",false,true);
+            txt_boardsize = new TextDisplay(this,175,300,200,50,"Board size:");
+            ib_sizebox = new IntBox(this,225,375,100,50,15,30);
+            txt_player = new TextDisplay(this,725,300,200,50,"First player:");
             vector<string> players={"X (red)","O (blue)"};
-            sp_playerbox = new StringPick(this,710,400,180,50,players,2);
-            btn_start = new Button(this,330,600,440,100,"Start",[this](){startGame();});
-            btn_quit = new Button(this,425,750,250,80,"Quit",[this](){_over=true;});
+            sp_playerbox = new StringPick(this,735,375,180,50,players,2);
+            txt_sticky = new TextDisplay(this,450,400,200,50,"Sticky mode:");
+            cb_stickybox = new Checkbox(this,525,475,50,50);
+            txt_stickyhint = new TextDisplay(this,215,535,670,50,"In sticky mode, you can't place isolated symbols.");
+            btn_start = new Button(this,330,625,440,100,"Start",[this](){startGame();});
+            btn_quit = new Button(this,425,775,250,80,"Quit",[this](){_over=true;});
 
             _gamePhase=0;
         }
@@ -52,6 +56,7 @@ class App: public Application
             if(sp_playerbox->getPick()!="")
             {
                 _boardsize=ib_sizebox->getNumber();
+                bool sticky=cb_stickybox->getCheck();
                 char startplayer;
                 string turnfile;
                 if(sp_playerbox->getPick()=="O (blue)")
@@ -67,9 +72,9 @@ class App: public Application
 
                 clearApp();
 
-                gameboard = new Board(this,20+(30-_boardsize)*10,25+(30-_boardsize)*13,800,800,_boardsize,startplayer);
+                gameboard = new Board(this,20+(30-_boardsize)*10,25+(30-_boardsize)*13,_boardsize,startplayer,sticky);
                 txt_placing = new TextDisplay(this,880-(30-_boardsize)*10,130,200,50,"Now placing:");
-                pic_turndisplay = new PicDisplay(this,930-(30-_boardsize)*10,200,100,100,turnfile);
+                pic_turndisplay = new PicDisplay(this,930-(30-_boardsize)*10,200,turnfile);
 
                 _gamePhase++;
             }
@@ -126,8 +131,12 @@ class App: public Application
         PicDisplay* pic_title;
         TextDisplay* txt_boardsize;
         TextDisplay* txt_player;
+        TextDisplay* txt_sticky;
+        TextDisplay* txt_stickyhint;
         IntBox* ib_sizebox;
         StringPick* sp_playerbox;
+        Checkbox* cb_stickybox;
+
         Button* btn_start;
         Button* btn_quit;
 
@@ -139,8 +148,8 @@ class App: public Application
         TextDisplay* txt_congrats;
         Button* btn_retry;
 
-        int _gamePhase;
-        int _boardsize;
+        int _gamePhase=0;
+        int _boardsize=22;
 };
 
 int main()

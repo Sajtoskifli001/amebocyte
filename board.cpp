@@ -13,11 +13,12 @@ struct rgb
     int r,g,b;
 };
 
-Board::Board(Application* parent, int x, int y, int sx, int sy, int cellCount, char turn): Widget(parent,x,y,sx,sy)
+Board::Board(Application* parent, int x, int y, int cellCount, char turn, bool sticky): Widget(parent,x,y,0,0)
 {
     _cellCount=cellCount;
     _freeCount=_cellCount*_cellCount;
     _turn=turn;
+    _sticky=sticky;
     _sx=cellCount*(_cellSize+_border)+_border;
     _sy=_sx;
 
@@ -218,7 +219,7 @@ bool Board::checkDiagS(cell center, int centerx, int centery, int length, char r
 bool Board::checkFive(cell center)
 {
     int centerx=center.x, centery=center.y, length=1;
-    char readstat;
+    char readstat='f';
     if(!checkRow(center,centerx,length,readstat))
         if(!checkColumn(center,centery,length,readstat))
             if(!checkDiagBS(center,centerx,centery,length,readstat))
@@ -234,6 +235,28 @@ bool Board::checkFive(cell center)
         return true;
 }
 
+bool Board::checkStick(cell center)
+{
+    if(_freeCount==_cellCount*_cellCount || _sticky==false)
+        return true;
+
+    int ystart=-1,ylimit=1,xstart=-1,xlimit=1;
+    if(center.y==0)
+        ystart=0;
+    else if(center.y==_cellCount-1)
+        ylimit=0;
+    if(center.x==0)
+        xstart=0;
+    else if(center.x==_cellCount-1)
+        xlimit=0;
+
+    for(int i=center.y+ystart;i<=center.y+ylimit;i++)
+        for(int j=center.x+xstart;j<=center.x+xlimit;j++)
+            if(_cells[i][j].status!='f')
+                return true;
+    return false;
+}
+
 bool Board::getFive()
 {
     return _five;
@@ -246,7 +269,8 @@ int Board::getFree()
 
 void Board::takeTurn(cell c)
 {
-    if(c.status=='f')
+
+    if(c.status=='f' && checkStick(c))
     {
         _cells[c.y][c.x].status=_turn;
 

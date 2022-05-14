@@ -6,7 +6,7 @@
 class PicDisplay : public Widget
 {
     public:
-        PicDisplay(Application*,int,int,int,int,std::string,bool=true,bool=false);
+        PicDisplay(Application*,int,int,std::string,bool=true,bool=false);
         virtual ~PicDisplay();
 
         virtual void draw();                                //widget kirajzolása

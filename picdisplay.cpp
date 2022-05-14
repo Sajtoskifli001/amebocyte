@@ -13,7 +13,7 @@ struct rgb
     int r,g,b;
 };
 
-PicDisplay::PicDisplay(Application* parent, int x, int y, int sx, int sy, string file, bool border, bool transp): Widget(parent,x,y,sx,sy)
+PicDisplay::PicDisplay(Application* parent, int x, int y, string file, bool border, bool transp): Widget(parent,x,y,0,0)
 {
     if(!border)
         _border=0;

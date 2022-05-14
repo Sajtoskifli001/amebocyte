@@ -26,7 +26,7 @@
 1650796704 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\intbox.hpp
 	"widget.hpp"
 
-1652102842 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\main.cpp
+1652524153 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\main.cpp
 	"graphics.hpp"
 	"application.hpp"
 	"widget.hpp"
@@ -36,9 +36,9 @@
 	"board.hpp"
 	"picdisplay.hpp"
 	"textdisplay.hpp"
+	"checkbox.hpp"
 	<fstream>
 	<ctime>
-	<iostream>
 
 1651711638 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\stringpick.hpp
 	"widget.hpp"
@@ -67,25 +67,25 @@
 	"graphics.hpp"
 	"application.hpp"
 
-1652100695 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\board.cpp
+1652523404 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\board.cpp
 	"graphics.hpp"
 	"board.hpp"
 	"application.hpp"
 	<vector>
 	<fstream>
 
-1652099778 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\board.hpp
+1652523369 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\board.hpp
 	"widget.hpp"
 	<vector>
 
-1652008054 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\picdisplay.cpp
+1652518948 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\picdisplay.cpp
 	"graphics.hpp"
 	"picdisplay.hpp"
 	"application.hpp"
 	<vector>
 	<fstream>
 
-1652024628 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\picdisplay.hpp
+1652518948 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\picdisplay.hpp
 	"widget.hpp"
 
 1652022732 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\textdisplay.cpp
@@ -94,5 +94,13 @@
 	"application.hpp"
 
 1652024628 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\textdisplay.hpp
+	"widget.hpp"
+
+1652523369 source:c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\checkbox.cpp
+	"graphics.hpp"
+	"checkbox.hpp"
+	"application.hpp"
+
+1652523369 c:\users\szentendrey\desktop\online oktatás\egyetem (oof)\bevprog\codeblocks\amebocyte\checkbox.hpp
 	"widget.hpp"
 
