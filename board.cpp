@@ -42,7 +42,7 @@ Board::Board(Application* parent, int x, int y, int cellCount, char turn, bool s
 }
 Board::~Board(){}
 
-void Board::import(string file, canvas &c)
+void Board::import(string file, canvas &c)                                                      //kép beolvasása .kep fájlból
 {
     ifstream is(file);
     vector<vector<rgb>> pic;
@@ -74,7 +74,7 @@ void Board::draw()
         }
 }
 
-cell Board::getCell(int cx, int cy)
+cell Board::getCell(int cx, int cy)                                                         //kattintott cella indexeinek és pozíciójának visszaküldése
 {
     cell retCell={-1,-1,'n'};
     for(size_t i=0;i<_cells.size();i++)
@@ -94,7 +94,7 @@ char Board::getTurnChar()
     return _turn;
 }
 
-bool Board::checkRow(cell center, int centerx, int length, char readstat)
+bool Board::checkRow(cell center, int centerx, int length, char readstat)                   //sorban 5 ugyanolyan keresése
 {
     if(center.x!=0)
     {
@@ -123,7 +123,7 @@ bool Board::checkRow(cell center, int centerx, int length, char readstat)
         return false;
 }
 
-bool Board::checkColumn(cell center, int centery, int length, char readstat)
+bool Board::checkColumn(cell center, int centery, int length, char readstat)                //oszlopban 5 ugyanolyan keresése
 {
     if(center.y!=0)
     {
@@ -152,7 +152,7 @@ bool Board::checkColumn(cell center, int centery, int length, char readstat)
         return false;
 }
 
-bool Board::checkDiagBS(cell center, int centerx, int centery, int length, char readstat)
+bool Board::checkDiagBS(cell center, int centerx, int centery, int length, char readstat)   //átlóban 5 ugyanolyan keresése (BS=backslash irányban)
 {
     if(center.x!=0 && center.y!=0)
     {
@@ -184,7 +184,7 @@ bool Board::checkDiagBS(cell center, int centerx, int centery, int length, char 
         return false;
 }
 
-bool Board::checkDiagS(cell center, int centerx, int centery, int length, char readstat)
+bool Board::checkDiagS(cell center, int centerx, int centery, int length, char readstat)    //átlóban 5 ugyanolyan keresése (S=slash irányban)
 {
     if(center.x!=0 && center.y!=_cellCount-1)
     {
@@ -216,7 +216,7 @@ bool Board::checkDiagS(cell center, int centerx, int centery, int length, char r
         return false;
 }
 
-bool Board::checkFive(cell center)
+bool Board::checkFive(cell center)                                                          //középpont körül 5 ugyanolyan keresése
 {
     int centerx=center.x, centery=center.y, length=1;
     char readstat='f';
@@ -235,7 +235,7 @@ bool Board::checkFive(cell center)
         return true;
 }
 
-bool Board::checkStick(cell center)
+bool Board::checkStick(cell center)                                                         //sticky módban 3x3-as környezetben szimbólum keresése
 {
     if(_freeCount==_cellCount*_cellCount || _sticky==false)
         return true;
@@ -267,7 +267,7 @@ int Board::getFree()
     return _freeCount;
 }
 
-void Board::takeTurn(cell c)
+void Board::takeTurn(cell c)                                        //érvényes kattintásnál szimbólum elhelyezése
 {
 
     if(c.status=='f' && checkStick(c))
@@ -286,7 +286,7 @@ void Board::takeTurn(cell c)
             _freeCount--;
         }
 
-        _parent->turnMaster();
+        _parent->turnMaster();                                      //Game App-ban körmester meghívása
     }
 }
 

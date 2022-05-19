@@ -22,7 +22,7 @@ PicDisplay::PicDisplay(Application* parent, int x, int y, string file, bool bord
 }
 PicDisplay::~PicDisplay(){}
 
-void PicDisplay::import(string file, canvas &c)
+void PicDisplay::import(string file, canvas &c)                                         //kép beolvasása .kep fájlból
 {
     ifstream is(file);
     vector<vector<rgb>> pic;
@@ -37,7 +37,7 @@ void PicDisplay::import(string file, canvas &c)
             c << move_to(j,i) << color(pic[i][j].r,pic[i][j].g,pic[i][j].b) << dot;
         }
     is.close();
-    _sx=picw+_border*2;
+    _sx=picw+_border*2;                                                                 //szélesség, magasság képmérettõl függ
     _sy=pich+_border*2;
 }
 
@@ -55,7 +55,7 @@ void PicDisplay::redraw(string file)
 
 void PicDisplay::handle(event ev){}
 
-bool PicDisplay::selected(int cx, int cy)
+bool PicDisplay::selected(int cx, int cy)                                           //nem fókuszálható
 {
     return false;
 }

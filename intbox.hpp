@@ -7,12 +7,12 @@ class IntBox : public Widget
 {
     public:
         IntBox(Application*,int,int,int,int,int,int);       //konstruktor, kér: Applikáció amihez tartozik, bal felsõ sarok x koordinátája, y koordinátája, szélesség, magasság, intervallum egyik határa, másik határa (még tartalmazza, sorrend mindegy)
-        virtual ~IntBox();                                  //destruktor
+        virtual ~IntBox();
 
         virtual void draw();                                //widget kirajzolása
         virtual void handle(genv::event);                   //widget kezelése, kér: event
-        bool on_up(int,int);                                //kurzor fel gombon van-e, kér: kurzor x koordinátája, y koordinátája, ad: igaz/hamis
-        bool on_down(int,int);                              //kurzor le gombon van-e, kér: kurzor x koordinátája, y koordinátája, ad: igaz/hamis
+        bool on_up(int,int);                                //kurzor fel gombon van-e, kér: kurzor x koordinátája, y koordinátája
+        bool on_down(int,int);                              //kurzor le gombon van-e, kér: kurzor x koordinátája, y koordinátája
         void increase(int);                                 //kiírt szám növelése, kér: mennyivel
         void decrease(int);                                 //kiírt szám csökkentése, kér: mennyivel
         void enforce();                                     //intervallum betartatása, túllépés esetén kiírt szám csökkentése/növelése

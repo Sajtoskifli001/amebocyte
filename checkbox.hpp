@@ -7,16 +7,16 @@
 class Checkbox : public Widget
 {
     public:
-        Checkbox(Application*,int,int,int,int);
+        Checkbox(Application*,int,int,int,int);             //konstruktor, kér: Applikáció amihez tartozik, bal felsõ sarok x koordinátája, y koordinátája, szélesség, magasság
         virtual ~Checkbox();
 
         virtual void draw();                                //widget kirajzolása
         virtual void handle(genv::event);                   //widget kezelése, kér: event
 
-        bool getCheck();
+        bool getCheck();                                    //check állapot visszaküldése
 
     protected:
-        bool _check=false;
+        bool _check=false;                                  //check állapot
 };
 
 #endif // CHECKBOX_HPP

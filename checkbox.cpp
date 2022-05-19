@@ -16,9 +16,9 @@ void Checkbox::draw()
     if(_check)
     {
         gout << color(0,0,0);
-        for(int i=-1;i<=1;i++)
-        gout << move_to(_x+_border+i,_y+_border) << line(_sx-_border*2,_sy-_border*2)
-             << move_to(_x+_sx-_border-1-i,_y+_border) << line(-(_sx-_border*2),_sy-_border*2);
+        for(int i=-1;i<=1;i++)                                                                          //X kirajzolása
+            gout << move_to(_x+_border+i,_y+_border) << line(_sx-_border*2,_sy-_border*2)
+                 << move_to(_x+_sx-_border-1-i,_y+_border) << line(-(_sx-_border*2),_sy-_border*2);
     }
 }
 

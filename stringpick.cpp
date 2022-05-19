@@ -10,13 +10,13 @@ using namespace genv;
 
 StringPick::StringPick(Application* parent, int x, int y, int sx, int sy, vector<string> options, int sc): Widget(parent,x,y,sx,sy)     //konstruktor, Widget konstruktor meghívása
 {
-    _options=options;                                       //összes opció stringvektora
-    _showCount=sc;                                          //megjelenítendõ opciók száma nyitott állapotban
-    _btnSize=_sy;                                           //gomb szélesség
+    _options=options;
+    _showCount=sc;
+    _btnSize=_sy;
 
-    construct();                                            //megjelenítendõ opciók vektorának (menü vektor) felépítése
+    construct();
 }
-StringPick::~StringPick(){}                                 //destruktor
+StringPick::~StringPick(){}
 
 bool StringPick::selected(int cx, int cy)                   //kurzor widgeten van-e, nyitott állapotban menüt beleértve
 {
@@ -40,68 +40,68 @@ void StringPick::construct()                                //megjelenítendõ opc
         if(i<_options.size())
             add.option=_options[i];
         else
-            add.option="";
+            add.option="";                                  //több kért megjelenítés mint opció esetén feltöltés üres (nem választható) elemekkel
         v.push_back(add);
     }
     _menu=v;
 }
 
-void StringPick::draw()                                                                                                                 //widget kirajzolása
+void StringPick::draw()
 {
     gout.load_font("LiberationSans-Regular.ttf",30);
     int textheight=gout.cascent()+gout.cdescent();                                                                                      //szövegmagasság, betûtípustól, mérettõl függ
 
-    gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)                                                                        //keret kirajzolása
-         << color(255,255,255) << move_to(_x+_border,_y+_border) << box(_sx-_border-_btnSize,_sy-_border*2)                             //kijelzõ kirajzolása
-         << color(0,0,0) << move_to(_x+_border+5,_y+_sy/2-textheight/2) << text(_pick);                                                 //választott opció kiírása (ederetileg üres)
+    gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)
+         << color(255,255,255) << move_to(_x+_border,_y+_border) << box(_sx-_border-_btnSize,_sy-_border*2)
+         << color(0,0,0) << move_to(_x+_border+5,_y+_sy/2-textheight/2) << text(_pick);
 
-    if(_hover)                                                                                                                          //          gomb kirajzolása
-        gout << color (100,100,100) << move_to(_x+_sx-_btnSize+_border,_y+_border) << box(_btnSize-_border*2,_btnSize-_border*2);       //  ha kurzor rajta van, más színnel
+    if(_hover)                                                                                                                          //gomb kirajzolása, ha kurzor rajta van, más színnel
+        gout << color (100,100,100) << move_to(_x+_sx-_btnSize+_border,_y+_border) << box(_btnSize-_border*2,_btnSize-_border*2);
 
     int xmid=_x+_sx-_border/2-_btnSize/2;                                                                                               //gomb közepének x koordinátája
     gout << color(0,0,0);
-    if(!_open)                                                                                                                          //ha menü nincs nyitva
+    if(!_open)
     {
-        int blocks=0;                                                                                                                       //nyíl(háromszög) pontjainak száma egy sorban -1
-        for(int ypos=_y+_sy-_border-_btnSize/5;ypos>_y+_sy-_border-_btnSize/2;ypos--)                                                   //
-        {                                                                                                                               //
-            for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)                                                                          //  le nyíl kirajzolása
-                gout << move_to(xpos,ypos) << dot;                                                                                      //  (widgetmérettõl függ)
-            blocks++;                                                                                                                   //
-        }                                                                                                                               //
+        int blocks=0;                                                                                                                   //nyíl(háromszög) pontjainak száma egy sorban -1
+        for(int ypos=_y+_sy-_border-_btnSize/5;ypos>_y+_sy-_border-_btnSize/2;ypos--)                                                   //le nyíl kirajzolása (widgetmérettõl függ)
+        {
+            for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)
+                gout << move_to(xpos,ypos) << dot;
+            blocks++;
+        }
     }
-    else                                                                                                                                //ha a menü nyitva van
+    else
     {
-        int blocks=0;                                                                                                                       //nyíl(háromszög) pontjainak száma egy sorban
-        for(int ypos=_y+_border+_btnSize/5;ypos<_y+_border+_btnSize/2;ypos++)                                                           //
-        {                                                                                                                               //
-            for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)                                                                          //  fel nyíl kirajzolása
-                gout << move_to(xpos,ypos) << dot;                                                                                      //  (widgetmérettõl függ)
-            blocks++;                                                                                                                   //
-        }                                                                                                                               //
+        int blocks=0;
+        for(int ypos=_y+_border+_btnSize/5;ypos<_y+_border+_btnSize/2;ypos++)                                                           //fel nyíl kirajzolása (widgetmérettõl függ)
+        {
+            for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)
+                gout << move_to(xpos,ypos) << dot;
+            blocks++;
+        }
 
         for(int i=0;i<_showCount;i++)                                                                                                   //menü kirajzolása
         {
-            gout << color(150,150,150) << move_to(_menu[i].x,_menu[i].y) << box(_sx-_btnSize,_sy);                                          //keret kirajzolása
-            if(_optionHover==i)                                                                                                         //
-            {                                                                                                                           //
-                if(_menu[i].option==_pick && _menu[i].option!="")                                                                       //
-                    gout << color(170,170,210);                                                                                         //
-                else                                                                                                                    //                  opciók különbözõ színekben
-                    gout << color(200,200,200);                                                                                         //  ha nincs rajta kurzor, ha van rajta kurzor, ha ki van választva,
-            }                                                                                                                           //                      és ezek kombinációi
-            else if(_menu[i].option==_pick && _menu[i].option!="")                                                                      //
-                gout << color(200,200,255);                                                                                             //
-            else                                                                                                                        //
-                gout << color(255,255,255);                                                                                             //
-            gout << move_to(_menu[i].x+_border,_menu[i].y+_border) << box(_sx-_btnSize-_border*2,_sy-_border*2)                         //
-                 << color(0,0,0) << move_to(_menu[i].x+_border+5,_menu[i].y+_sy/2-textheight/2) << text(_menu[i].option);                   //opció kiírása, vízszintesen középre igazítva
+            gout << color(150,150,150) << move_to(_menu[i].x,_menu[i].y) << box(_sx-_btnSize,_sy);
+            if(_optionHover==i)                                                                                                         //opciók különbözõ színekben, ha nincs rajta kurzor, ha van rajta kurzor, ha ki van választva, és ezek kombinációi
+            {
+                if(_menu[i].option==_pick && _menu[i].option!="")
+                    gout << color(170,170,210);
+                else
+                    gout << color(200,200,200);
+            }
+            else if(_menu[i].option==_pick && _menu[i].option!="")
+                gout << color(200,200,255);
+            else
+                gout << color(255,255,255);
+            gout << move_to(_menu[i].x+_border,_menu[i].y+_border) << box(_sx-_btnSize-_border*2,_sy-_border*2)
+                 << color(0,0,0) << move_to(_menu[i].x+_border+5,_menu[i].y+_sy/2-textheight/2) << text(_menu[i].option);               //opció kiírása, vízszintesen középre igazítva
         }
         gout << color(0,150,255);
-        if(_menu[_showCount-1].option!=_options[_options.size()-1] && _menu[_showCount-1].option!="")                                   //ha van a menüben fentebb nem látszó opció
-            gout << move_to(_x,_menu[_showCount-1].y+_sy-_border) << box(_sx-_btnSize,_border);                                         //kék vonal a menü tetején
-        if(_menu[0].option!=_options[0])                                                                                                //ha van a menüben lentebb nem látszó opció
-            gout << move_to(_x,_menu[0].y) << box(_sx-_btnSize,_border);                                                                //kék vonal a menü alján
+        if(_menu[_showCount-1].option!=_options[_options.size()-1] && _menu[_showCount-1].option!="")                                   //ha van a menüben fentebb nem látszó opció, kék vonal a menü tetején
+            gout << move_to(_x,_menu[_showCount-1].y+_sy-_border) << box(_sx-_btnSize,_border);
+        if(_menu[0].option!=_options[0])                                                                                                //ha van a menüben lentebb nem látszó opció, kék vonal a menü alján
+            gout << move_to(_x,_menu[0].y) << box(_sx-_btnSize,_border);
     }
 }
 
@@ -129,7 +129,7 @@ int StringPick::on_option(int cx, int cy)                                       
         return -1;
 }
 
-string StringPick::getPick()                                                                            //választott opció lekérése
+string StringPick::getPick()
 {
     return _pick;
 }
@@ -155,46 +155,46 @@ void StringPick::addOption(string newop)
     construct();
 }
 
-void StringPick::handle(event ev)                                                                       //kezelés
+void StringPick::handle(event ev)
 {
-    if(ev.type==ev_mouse)                                                                               //egér mozgatása esetén
+    if(ev.type==ev_mouse)
     {
-        if(on_btn(ev.pos_x,ev.pos_y))                                                                   //
-            _hover=true;                                                                                //  kurzor helyének tárolása
-        else                                                                                            //       (gombon van-e)
-            _hover=false;                                                                               //
-        if(_open)                                                                                           //ha nyitva a menü
-            _optionHover=on_option(ev.pos_x,ev.pos_y);                                                  //kurzor melyik opción van (menü vektorban index lekérése, ha egyiken sem, vagy üres opció, akkor -1)
+        if(on_btn(ev.pos_x,ev.pos_y))                                                                   //kurzor gombon van-e
+            _hover=true;
+        else
+            _hover=false;
+        if(_open)
+            _optionHover=on_option(ev.pos_x,ev.pos_y);
 
-        if(ev.button==btn_left)                                                                         //bal kattintás esetén
+        if(ev.button==btn_left)
         {
-            if(on_btn(ev.pos_x,ev.pos_y))                                                               //ha a kurzor a gombon van
+            if(on_btn(ev.pos_x,ev.pos_y))
             {
-                if(_open)                                                                                   //ha a menü nyitva van
-                    gout << color(0,0,0) << move_to(_x,_y+_sy) << box(_sx-_btnSize,_showCount*_sy);         //menü helyének törlése
-                _open=!_open;                                                                           //menü kinyitása/becsukása
+                if(_open)                                                                               //ha a menü nyitva van, menü helyének törlése
+                    gout << color(0,0,0) << move_to(_x,_y+_sy) << box(_sx-_btnSize,_showCount*_sy);
+                _open=!_open;
             }
 
             else if(_open && on_option(ev.pos_x,ev.pos_y)!=-1)                                          //ha menü nyitva, és kurzor opción van (nem -1)
             {
-                _pick=_menu[on_option(ev.pos_x,ev.pos_y)].option;                                       //választott opció beállítása
-                _optionHover=-1;                                                                        //kurzor opció -1-re állítása
-                _open=!_open;                                                                           //menü bezárása
-                gout << color(0,0,0) << move_to(_x,_y+_sy) << box(_sx-_btnSize,_showCount*_sy);         //menü helyének törlése
+                _pick=_menu[on_option(ev.pos_x,ev.pos_y)].option;
+                _optionHover=-1;
+                _open=!_open;
+                gout << color(0,0,0) << move_to(_x,_y+_sy) << box(_sx-_btnSize,_showCount*_sy);
 
                 _parent->turnMaster();
             }
         }
 
-        else if(ev.button==btn_wheelup && on_menu(ev.pos_x,ev.pos_y) && _offset!=0)                                 //fel görgõ esetén, ha kurzor a menün van, és van offset
+        else if(ev.button==btn_wheelup && on_menu(ev.pos_x,ev.pos_y) && _offset!=0)                                 //fel görgõ esetén, ha kurzor a menün van, és van offset: offset csökkentése, menü vektor újra felépítése
         {
-            _offset--;                                                                                              //offset csökkentése
-            construct();                                                                                            //menü vektor újra felépítése
+            _offset--;
+            construct();
         }
-        else if(ev.button==btn_wheeldown && on_menu(ev.pos_x,ev.pos_y) && _showCount+_offset<_options.size())       //le görgõ esetén, ha kurzor a menün van, és nem látható az utolsó opció
+        else if(ev.button==btn_wheeldown && on_menu(ev.pos_x,ev.pos_y) && _showCount+_offset<_options.size())       //le görgõ esetén, ha kurzor a menün van, és nem látható az utolsó opció: offset növelése, menü vektor újra felépítése
         {
-            _offset++;                                                                                              //offset növelése
-            construct();                                                                                            //menü vektor újra felépítése
+            _offset++;
+            construct();
         }
     }
 }

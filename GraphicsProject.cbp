@@ -59,6 +59,8 @@
 		<Unit filename="board.hpp" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.hpp" />
+		<Unit filename="checkbox.cpp" />
+		<Unit filename="checkbox.hpp" />
 		<Unit filename="intbox.cpp" />
 		<Unit filename="intbox.hpp" />
 		<Unit filename="main.cpp" />

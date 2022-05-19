@@ -6,17 +6,17 @@
 #include <string>
 #include <vector>
 
-struct optionBox                    //opció típus
+struct optionBox
 {
-    int x,y;                        //bal felsõ sarok x és y koordinátája
-    std::string option;             //opció
+    int x,y;
+    std::string option;
 };
 
 class StringPick : public Widget
 {
     public:
         StringPick(Application*,int,int,int,int,std::vector<std::string>,int);      //konstruktor, kér: Applikáció amihez tartozik, bal felsõ sarok x koordinátája, y koordinátája, szélesség, magasság, opciók stringvektora, megjelenítendõ opciók száma
-        virtual ~StringPick();                                                      //destruktor
+        virtual ~StringPick();
 
         virtual bool selected(int,int);                                             //kurzor rajta van-e, kér: kurzor x koordináta, y koordináta, ad: igaz/hamis
         void construct();                                                           //megjelenítendõ opciók vektorának (menü vektor) létrehozása, több opció mint megjeleníteni kívánt esetén offsetet beleszámítva (görgetés), kevesebb opció mint megjeleníteni kívánt esetén üres, nem választható opció hozzáadása
@@ -27,8 +27,8 @@ class StringPick : public Widget
         std::string getPick();                                                      //választott opció lekérése
         virtual void handle(genv::event);                                           //widget kezelése, kér: event
 
-        void removePick();
-        void addOption(std::string);
+        void removePick();                                                          //kiválasztott opció törlése az opcióvektorból
+        void addOption(std::string);                                                //opció hozzáadása, kér: új opció
 
     protected:
         std::vector<std::string> _options;                                          //beadott opciók vektora

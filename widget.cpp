@@ -4,16 +4,16 @@
 
 using namespace genv;
 
-Widget::Widget(Application* parent, int x, int y, int sx, int sy)       //konstruktor
+Widget::Widget(Application* parent, int x, int y, int sx, int sy)
 {
-    _parent=parent;                                                     //Applikáció, amihez tartozik
-    _x=x;                                                               //bal felsõ sarok x koordinátája
-    _y=y;                                                               //bal felsõ sarok y koordinátája
-    _sx=sx;                                                             //szélesség
-    _sy=sy;                                                             //magasság
+    _parent=parent;
+    _x=x;
+    _y=y;
+    _sx=sx;
+    _sy=sy;
     _parent->push(this);                                                //Applikáció vektorához adja magát
 }
-Widget::~Widget(){}                                                     //destruktor
+Widget::~Widget(){}
 
 bool Widget::selected(int cx, int cy)                                   //kurzor widgeten van-e
 {

@@ -18,13 +18,13 @@ using namespace genv;
 class App: public Application
 {
     public:
-        App(int W, int H): Application(W,H)                                             //konstruktor, Applikáció konstruktor meghívása
+        App(int W, int H): Application(W,H)
         {
-            pic_background = new PicDisplay(this,0,0,"bg.kep",false);
+            pic_background = new PicDisplay(this,0,0,"bg.kep",false);                   //háttérkép
             preGame();
         }
 
-        void clearApp()
+        void clearApp()                                                                 //widget-vektor kiürítése (kivéve háttér)
         {
             for(size_t i=1;i<widgets.size();i++)
                 delete widgets[i];
@@ -32,7 +32,7 @@ class App: public Application
             _focus=-1;
         }
 
-        void preGame()
+        void preGame()                                                                  //fõmenü widgetjeinek beállítása, játékfázis 0-ra állítása
         {
             clearApp();
 
@@ -51,23 +51,18 @@ class App: public Application
             _gamePhase=0;
         }
 
-        void startGame()
+        void startGame()                                                                //játék widgetjeinek beállítása, fõmenüben megadott paraméterekkel, játékfázis növelése
         {
             if(sp_playerbox->getPick()!="")
             {
                 _boardsize=ib_sizebox->getNumber();
                 bool sticky=cb_stickybox->getCheck();
-                char startplayer;
-                string turnfile;
+                char startplayer='x';
+                string turnfile="x-hires.kep";;
                 if(sp_playerbox->getPick()=="O (blue)")
                 {
                     startplayer='o';
                     turnfile="o-hires.kep";
-                }
-                else
-                {
-                    startplayer='x';
-                    turnfile="x-hires.kep";
                 }
 
                 clearApp();
@@ -79,10 +74,10 @@ class App: public Application
                 _gamePhase++;
             }
             else
-                btn_start->setText("Choose a player!");
+                btn_start->setText("Choose a player!");                                 //ha nincs kezdõjátékos kiválasztva, figyelmeztetés a start gombon
         }
 
-        void endGame()
+        void endGame()                                                                  //játék végi widgetek beállítása
         {
             txt_congrats = new TextDisplay(this,870-(30-_boardsize)*10,350,220,50,"Well played! :)");
             btn_retry = new Button(this,880-(30-_boardsize)*10,500,200,80,"Retry",[this](){preGame();});
@@ -91,34 +86,34 @@ class App: public Application
 
         void turnMaster()
         {
-            if(_gamePhase==0)
+            if(_gamePhase==0)                                                           //Fõmenüben: start gomb felirat visszaállítása
             {
                 btn_start->setText("Start");
             }
-            else if(_gamePhase==1)
+            else if(_gamePhase==1)                                                      //Játékban:
             {
-                char turnChar=gameboard->getTurnChar();
+                char turnChar=gameboard->getTurnChar();                                 //kör jelzõ kép módosítása
                 if(turnChar=='o')
                     pic_turndisplay->redraw("o-hires.kep");
                 else
                     pic_turndisplay->redraw("x-hires.kep");
 
-                if(gameboard->getFive() || gameboard->getFree()==0)
+                if(gameboard->getFive() || gameboard->getFree()==0)                     //játék vége feltétel ellenõrzése
                 {
                     _gamePhase++;
                     turnMaster();
                 }
             }
-            else
+            else                                                                        //Játék végén:
             {
                 endGame();
-                if(gameboard->getFree()==0)
+                if(gameboard->getFree()==0)                                             //döntetlen eset kezelése
                 {
                     srand(time(0));
                     int rnd=rand()%10;
                     txt_placing->setText("Draw!");
                     if(rnd==9)
-                        pic_turndisplay->redraw("csirke.kep");
+                        pic_turndisplay->redraw("csirke.kep");                          //easter egg
                     else
                         pic_turndisplay->redraw("draw.kep");
                 }
@@ -154,7 +149,7 @@ class App: public Application
 
 int main()
 {
-    App GameApp(1100,900);       //Game App létrehozása: szélesség, magasság
-    GameApp.event_loop();       //Game Apphoz tartozó event loop indítása
+    App GameApp(1100,900);      //widgetek elrendezése 1100x900 ablakméret köré épült
+    GameApp.event_loop();
     return 0;
 }

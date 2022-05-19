@@ -9,16 +9,16 @@ using namespace genv;
 
 IntBox::IntBox(Application* parent, int x, int y, int sx, int sy, int intervalL, int intervalR): Widget(parent,x,y,sx,sy)       //konstruktor, Widget konstruktor meghívása
 {
-    if(intervalL<=intervalR)                                    //
-    {                                                           //
-        _intervalL=intervalL;                                   //
-        _intervalR=intervalR;                                   //
-    }                                                           //  intervallum kezdõ- és végpontok
-    else                                                        //            elrendezése
-    {                                                           //
-        _intervalL=intervalR;                                   //
-        _intervalR=intervalL;                                   //
-    }                                                           //
+    if(intervalL<=intervalR)                                    //intervallum kezdõ- és végpontok elrendezése
+    {
+        _intervalL=intervalL;
+        _intervalR=intervalR;
+    }
+    else
+    {
+        _intervalL=intervalR;
+        _intervalR=intervalL;
+    }
 
     /*stringstream ssL,ssR;                                     //
     ssL << _intervalL;                                          //
@@ -29,11 +29,11 @@ IntBox::IntBox(Application* parent, int x, int y, int sx, int sy, int intervalL,
         _sx=gout.twidth(ssR.str())+30;*/                        //
 
     _btnSize=_sy/2+_border;                                     //növelõ/csökkentõ gomb szélessége, magasságtól függ
-    _number=(_intervalL+_intervalR)/2;                          //alapból megjelenítendõ szám, intervallum (egyik) középsõ eleme
+    _number=(_intervalL+_intervalR)/2;
 }
-IntBox::~IntBox(){}                                             //destruktor
+IntBox::~IntBox(){}
 
-void IntBox::draw()                                             //widget kirajzolása
+void IntBox::draw()
 {
     gout.load_font("LiberationSans-Regular.ttf",30);
     int fieldy=_y+_border,                                      //widget kijelzõ felsõ széle
@@ -43,31 +43,31 @@ void IntBox::draw()                                             //widget kirajzo
 
     stringstream ss;
     ss << _number;
-    gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)                                                            //keret kirajzolása
-    << color(255,255,255) << move_to(_x+_border,_y+_border) << box(_sx-_border-_btnSize,_sy-_border*2)                      //kijelzõ kirajzolása
+    gout << color(150,150,150) << move_to(_x,_y) << box(_sx,_sy)
+    << color(255,255,255) << move_to(_x+_border,_y+_border) << box(_sx-_border-_btnSize,_sy-_border*2)
     << color(0,0,0) << move_to(_x+_sx/2-gout.twidth(ss.str())/2-_btnSize/2,_y+_sy/2-textheight/2) << text(ss.str());        //szám kiírása, középre igazítva
 
-    if(_hoverUp)                                                                                                            //
-        gout << color(100,100,100) << move_to(fieldwidth+_border,_y+_border) << box(btnboxsize,btnboxsize);                 //         gomb kirajzolása
-    if(_hoverDown)                                                                                                          //  ha kurzor rajta van, más színnel
-        gout << color(100,100,100) << move_to(fieldwidth+_border,_y+_sy-_border-1) << box(btnboxsize,-btnboxsize);          //
+    if(_hoverUp)                                                                                                            //gomb kirajzolása, ha kurzor rajta van, más színnel
+        gout << color(100,100,100) << move_to(fieldwidth+_border,_y+_border) << box(btnboxsize,btnboxsize);
+    if(_hoverDown)
+        gout << color(100,100,100) << move_to(fieldwidth+_border,_y+_sy-_border-1) << box(btnboxsize,-btnboxsize);
 
     int xmid=_x+_sx-_border/2-_btnSize/2,                                               //gomb közepének x koordinátája
         blocks=0;                                                                       //nyíl(háromszög) pontjainak száma egy sorban -1
     gout << color(0,0,0);
-    for(int ypos=fieldy+_btnSize/5;ypos<fieldy+_btnSize/2;ypos++)                       //
-    {                                                                                   //
-        for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)                              //   fel nyíl kirajzolása
-            gout << move_to(xpos,ypos) << dot;                                          //   (widgetmérettõl függ)
-        blocks++;                                                                       //
-    }                                                                                   //
-    blocks=0;                                                                               //blockszám nullázása
-    for(int ypos=_y+_sy-_border-_btnSize/5;ypos>_y+_sy-_border-_btnSize/2;ypos--)       //
-    {                                                                                   //
-        for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)                              //   le nyíl kirajzolása
-            gout << move_to(xpos,ypos) << dot;                                          //   (widgetmérettõl függ)
-        blocks++;                                                                       //
-    }                                                                                   //
+    for(int ypos=fieldy+_btnSize/5;ypos<fieldy+_btnSize/2;ypos++)                       //fel nyíl kirajzolása (widgetmérettõl függ)
+    {
+        for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)
+            gout << move_to(xpos,ypos) << dot;
+        blocks++;
+    }
+    blocks=0;
+    for(int ypos=_y+_sy-_border-_btnSize/5;ypos>_y+_sy-_border-_btnSize/2;ypos--)       //le nyíl kirajzolása (widgetmérettõl függ)
+    {
+        for(int xpos=xmid-blocks;xpos<=xmid+blocks;xpos++)
+            gout << move_to(xpos,ypos) << dot;
+        blocks++;
+    }
 }
 
 bool IntBox::on_up(int cx, int cy)                                                      //kurzor fel gombon van-e
@@ -80,12 +80,12 @@ bool IntBox::on_down(int cx, int cy)                                            
     return cx>_x+_sx-_btnSize && cx<_x+_sx && cy>_y+_sy/2 && cy<_y+_sy;
 }
 
-void IntBox::increase(int x)                                                            //kiírt szám növelése
+void IntBox::increase(int x)
 {
     _number+=x;
 }
 
-void IntBox::decrease(int x)                                                            //kiírt szám csökkentése
+void IntBox::decrease(int x)
 {
     _number-=x;
 }
@@ -98,43 +98,43 @@ void IntBox::enforce()                                                          
         _number=_intervalR;
 }
 
-int IntBox::getNumber()                                                                 //kiírt szám lekérése
+int IntBox::getNumber()
 {
     return _number;
 }
 
-void IntBox::handle(event ev)                                                           //kezelés
+void IntBox::handle(event ev)
 {
-    if(ev.type==ev_mouse)                                                               //egér mozgatása esetén
+    if(ev.type==ev_mouse)
     {
-        if(on_up(ev.pos_x,ev.pos_y))                                                    //
-            _hoverUp=true;                                                              //
-        else                                                                            //
-            _hoverUp=false;                                                             //  kurzor helyének tárolása
-        if(on_down(ev.pos_x,ev.pos_y))                                                  //      (gombon van-e)
-            _hoverDown=true;                                                            //
-        else                                                                            //
-            _hoverDown=false;                                                           //
+        if(on_up(ev.pos_x,ev.pos_y))                                                    //kurzor gombon van-e
+            _hoverUp=true;
+        else
+            _hoverUp=false;
+        if(on_down(ev.pos_x,ev.pos_y))
+            _hoverDown=true;
+        else
+            _hoverDown=false;
 
-        if(ev.button==btn_left)                                                         //bal kattintás esetén
+        if(ev.button==btn_left)
         {
-            if(on_up(ev.pos_x,ev.pos_y))                                                //ha fel gombon, kiírt szám növelése 1-el
+            if(on_up(ev.pos_x,ev.pos_y))
                 increase(1);
-            else if(on_down(ev.pos_x,ev.pos_y))                                         //ha le gombon, kiírt szám csökkentése 1-el
+            else if(on_down(ev.pos_x,ev.pos_y))
                 decrease(1);
-            enforce();                                                                  //intervallum betartatása
+            enforce();
         }
     }
-    else if(ev.type==ev_key)                                                            //gombnyomásra
+    else if(ev.type==ev_key)
     {
-        if(ev.keycode==key_up)                                                          //fel billentyû esetén növelés 1-el
+        if(ev.keycode==key_up)
             increase(1);
-        else if(ev.keycode==key_down)                                                   //le billentyû esetén csökkentés 1-el
+        else if(ev.keycode==key_down)
             decrease(1);
-        else if(ev.keycode==key_pgup)                                                   //page up billentyû esetén növelés 10-el
+        else if(ev.keycode==key_pgup)
             increase(10);
-        else if(ev.keycode==key_pgdn)                                                   //page down billentyû esetén csökkentés 10-el
+        else if(ev.keycode==key_pgdn)
             decrease(10);
-        enforce();                                                                      //intervallum betartatása
+        enforce();
     }
 }
